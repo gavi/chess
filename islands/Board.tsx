@@ -4,6 +4,8 @@ import { useState } from "preact/hooks";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 import { tw } from "@twind";
 import Cell from "./Cell.tsx"
+import  DndProvider  from "preact-dnd";
+import  {HTML5Backend}  from "react-dnd-html5-backend";
 
 interface BoardProps {
   state: string;
@@ -33,8 +35,16 @@ export default function Board(props:BoardProps) {
     }
   }
   return (
+    (IS_BROWSER)?
+    <DndProvider backend={HTML5Backend}>
     <div class={tw`grid grid-cols-8 border-slate-50 border-2 rounded mx-auto bg-slate-50`} style="width:40rem">
      {items}
     </div>
+    </DndProvider>
+    :
+    <div class={tw`grid grid-cols-8 border-slate-50 border-2 rounded mx-auto bg-slate-50`} style="width:40rem">
+     {items}
+    </div>
+    
   );
 }
